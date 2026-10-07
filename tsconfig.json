@@ -5,11 +5,11 @@
             "dom",
             "dom.iterable"
         ],
-        "module": "commonjs",
+        "module": "preserve",
         "target": "es2015",
         "rootDir": "./src",
         "outDir": "./dist",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "sourceRoot": "./src",
         "types": [
             "node",

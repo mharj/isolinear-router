@@ -1,11 +1,7 @@
-/* eslint-disable no-unused-expressions */
-import 'mocha';
-import * as chai from 'chai';
+import {describe, it, expect, vi} from 'vitest';
 import * as clientUuid from '../src/lib/clientUuid';
 import * as routerUuid from '../src/lib/routerUuid';
 import * as serviceUuid from '../src/lib/serviceUuid';
-
-const expect = chai.expect;
 
 describe('UUID tests', () => {
 	it('should create and validate service UUID', async () => {

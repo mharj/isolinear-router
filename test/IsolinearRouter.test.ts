@@ -1,7 +1,4 @@
-/* eslint-disable no-unused-expressions */
-import 'mocha';
-import * as chai from 'chai';
-import * as sinon from 'sinon';
+import {describe, it, expect, vi} from 'vitest';
 import {generateServiceUUID} from '../src/lib/serviceUuid';
 import {IClient} from '../src/interfaces/IClient';
 import {IService} from '../src/interfaces/IService';
@@ -13,11 +10,9 @@ import {EventInputOutput} from '../src/lib/EventMessageBus';
 
 const eventMessageBus = new EventInputOutput<ServiceControlPacket[], RouterControlPacket[]>();
 
-const expect = chai.expect;
-
 const router = new IsolinearRouter(eventMessageBus.getInputMessageBus());
 
-const sendPacket = sinon.spy();
+const sendPacket = vi.fn();
 
 const mockupClient: IClient = {
 	sendPacket,
