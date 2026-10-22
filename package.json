@@ -30,10 +30,10 @@
     "@vitest/coverage-v8": "^5.0.5",
     "c8": "^12.0.0",
     "typescript": "^7.0.2",
-    "uuid": "14.0.2",
+    "uuid": "14.0.3",
     "vite": "^8.3.4",
     "vitest": "^5.0.5",
-    "zod": "^4.6.7"
+    "zod": "^4"
   },
   "peerDependencies": {
     "@avanio/logger-like": ">=0.1.0",
