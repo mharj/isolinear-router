@@ -1,39 +1,15 @@
 {
+    "extends": "./tsconfig.build.json",
     "compilerOptions": {
-        "lib": [
-            "es2021",
-            "dom",
-            "dom.iterable"
-        ],
-        "module": "preserve",
-        "target": "es2015",
-        "rootDir": "./src",
-        "outDir": "./dist",
-        "moduleResolution": "bundler",
-        "sourceRoot": "./src",
-        "types": [
-            "node",
-        ],
-        "declaration": true,
-        "removeComments": false,
-        "inlineSources": false,
-        "inlineSourceMap": true,
-        "forceConsistentCasingInFileNames": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noImplicitAny": true,
-        "importHelpers": false,
-        "strictNullChecks": true,
-        "noUnusedLocals": true,
-        "strict": true
+        "rootDir": "."
     },
     "include": [
+        "test",
         "src"
     ],
     "exclude": [
-        "node_modules",
-        "**/*.spec.ts",
-        "test",
-        "dist"
-    ]
+        "dist",
+        "node_modules"
+    ],
+    "importHelpers": false
 }

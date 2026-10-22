@@ -1,11 +1,9 @@
 import {describe, it, expect, vi} from 'vitest';
 import {generateServiceUUID} from '../src/lib/serviceUuid';
 import {IClient} from '../src/interfaces/IClient';
-import {IService} from '../src/interfaces/IService';
 import {ServiceControlPacket} from '../src/types/ServiceControlPacket';
 import {IsolinearRouter} from '../src/IsolinearRouter';
 import {RouterControlPacket} from '../src/types/RouterControlPacket';
-import {ClientInputDataPacket} from '../src/types/clientPacket/ClientInputDataPacket';
 import {EventInputOutput} from '../src/lib/EventMessageBus';
 
 const eventMessageBus = new EventInputOutput<ServiceControlPacket[], RouterControlPacket[]>();
@@ -20,30 +18,30 @@ const mockupClient: IClient = {
 
 const serviceUuid = generateServiceUUID();
 
-class TestService implements IService {
+/* class TestService implements IService {
 	public name = 'unit-test';
 	private controlInputCallback: undefined | ((message: ServiceControlPacket) => void);
-	private dataInputCallback: (message: ClientInputDataPacket) => void;
+	private dataInputCallback: (message: ClientInputDataPacket) => void = () => {};
 	public uuid = generateServiceUUID();
-	serviceControlOutput(message: RouterControlPacket): void {
-		switch (message.type) {
+	sendControlOutput(message: ServiceControlPacket): void {
+ 		switch (message.type) {
 			case 'ping':
 				this.controlInputCallback?.({type: 'pong', ts: message.ts, uuid: this.uuid});
 				break;
 			case 'register':
 				this.controlInputCallback?.({type: 'registered', uuid: message.uuid, targets: [`/${this.uuid}`]});
 				break;
-		}
+		} 
 	}
 
 	serviceDataOutput(message: unknown): void {
-		/* switch (message.type) {
+		switch (message.type) {
 			case 'register':
 				break;
-		} */
+		} 
 	}
 
-	onServiceControlInput(callback: (message: ServiceControlPacket) => void): void {
+	onControlInput(callback: (message: RouterControlPacket) => void): void {
 		throw new Error('Method not implemented.');
 	}
 
@@ -51,22 +49,7 @@ class TestService implements IService {
 		throw new Error('Method not implemented.');
 	}
 }
-
-/* const testService: IService = {
-    uuid: serviceUuid,
-    onServiceControlOutput: (output) => {
-        console.log(output);
-    },
-    onServiceDataOutput: (output) => {
-        console.log(output);
-    },
-    serviceControlInput: function (message: { type: 'pong'; ts: number; uuid: `service-${string}-${string}-${string}-${string}`; } | { type: 'service-register'; status: string; uuid: `service-${string}-${string}-${string}-${string}`; name: string; } | { type: 'registered'; uuid: `client-${string}-${string}-${string}-${string}`; targets: `/${string}-${string}-${string}-${string}`[]; }): void {
-        throw new Error('Function not implemented.');
-    },
-    serviceDataInput: function (message: { type: 'register'; uuid: `service-${string}-${string}-${string}-${string}`; props?: unknown; }): void {
-        throw new Error('Function not implemented.');
-    }
-}; */
+ */
 
 const registerServicePayload: ServiceControlPacket = {
 	name: 'unit-test',
@@ -85,7 +68,7 @@ describe('UUID tests', () => {
 		router.onControlOutput((packet) => {
 			console.log(packet);
 		});
-		router.dataInput([{type: 'register', uuid: serviceUuid, props: {}}]);
+		router.dataInput(clientUuid, [{type: 'register', uuid: serviceUuid, props: {}}]);
 		// cleanup
 		expect(router.unregisterClient(clientUuid)).to.be.true;
 	});

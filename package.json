@@ -3,26 +3,11 @@
   "version": "0.0.1",
   "description": "Data router",
   "main": "./dist/index.js",
+  "private": true,
   "scripts": {
     "test": "vitest test --run --no-isolate --coverage",
     "lint": "biome check",
     "validate": "tsc --noEmit"
-  },
-  "mocha": {
-    "exit": true,
-    "extension": [
-      "ts",
-      "js"
-    ],
-    "recursive": true,
-    "require": [
-      "ts-node/register",
-      "source-map-support/register"
-    ],
-    "reporters": [
-      "spec",
-      "mocha-junit-reporter"
-    ]
   },
   "repository": {
     "type": "git",
@@ -41,14 +26,14 @@
   "devDependencies": {
     "@avanio/logger-like": "^0.2.13",
     "@biomejs/biome": "^2.5.15",
-    "@types/node": "^24.19.1",
-    "@vitest/coverage-v8": "^5.0.3",
+    "@types/node": "^24.19.2",
+    "@vitest/coverage-v8": "^5.0.5",
     "c8": "^12.0.0",
     "typescript": "^7.0.2",
     "uuid": "14.0.2",
-    "vite": "^8.3.3",
-    "vitest": "^5.0.3",
-    "zod": "^4"
+    "vite": "^8.3.4",
+    "vitest": "^5.0.5",
+    "zod": "^4.6.7"
   },
   "peerDependencies": {
     "@avanio/logger-like": ">=0.1.0",

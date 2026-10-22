@@ -1,18 +1,17 @@
 import type {ILoggerLike, ISetLogger} from '@avanio/logger-like';
-import {ServiceControlPacket, serviceControlPacketSchema, ServiceClientRegisteredControlPacket} from './types/ServiceControlPacket';
-import {ClientUUID, generateClientUUID} from './lib/clientUuid';
-import {IClient} from './interfaces/IClient';
-import {IService} from './interfaces/IService';
-import {ClientInputDataPacket, clientInputDataPacketSchema} from './types/clientPacket/ClientInputDataPacket';
-import {RouterControlPacket, RouterClientRegisterControlPacket} from './types/RouterControlPacket';
-import {OutputDataPacket} from './types/clientPacket/OutputDataPacket';
-import {Service} from './types/Service';
-import {TargetPath} from './types/TargetPath';
-import {UUID} from './types/UUID';
-import {ServiceUUID} from './lib/serviceUuid';
-import {IMessageBus} from './interfaces/IMessageBus';
+import type {IClient} from './interfaces/IClient';
+import type {IMessageBus} from './interfaces/IMessageBus';
+import type {IService} from './interfaces/IService';
+import {type ClientUUID, generateClientUUID} from './lib/clientUuid';
 import {generateRouterUUID} from './lib/routerUuid';
-import {ClientInputProxyDataPacket} from './types/clientPacket/ClientInputProxyDataPacket';
+import type {ServiceUUID} from './lib/serviceUuid';
+import {type ClientInputDataPacket, clientInputDataPacketSchema} from './types/clientPacket/ClientInputDataPacket';
+import type {ClientInputProxyDataPacket} from './types/clientPacket/ClientInputProxyDataPacket';
+import type {OutputDataPacket} from './types/clientPacket/OutputDataPacket';
+import type {RouterControlPacket} from './types/RouterControlPacket';
+import {type ServiceClientRegisteredControlPacket, type ServiceControlPacket, serviceControlPacketSchema} from './types/ServiceControlPacket';
+import type {TargetPath} from './types/TargetPath';
+import type {UUID} from './types/UUID';
 
 export class IsolinearRouter implements ISetLogger {
 	private registeredServices = new Map<UUID, IService>();
@@ -45,7 +44,9 @@ export class IsolinearRouter implements ISetLogger {
 	}
 
 	public dataInput(uuid: ClientUUID, packets: ClientInputDataPacket[]) {
-		packets.forEach((packet) => this.handleDataInput(uuid, packet));
+		for (const packet of packets) {
+			this.handleDataInput(uuid, packet);
+		}
 	}
 
 	public controlInput(packets: ServiceControlPacket[]) {
@@ -116,7 +117,7 @@ export class IsolinearRouter implements ISetLogger {
 					this.handleUnknownPackage(packet);
 				}
 			}
-		} catch (e) {
+		} catch (_e) {
 			this.logger?.error(`Error handling control packet ${JSON.stringify(packet)}`);
 		}
 	}

@@ -1,4 +1,4 @@
-import {describe, it, expect, vi} from 'vitest';
+import {describe, it, expect} from 'vitest';
 import * as clientUuid from '../src/lib/clientUuid';
 import * as routerUuid from '../src/lib/routerUuid';
 import * as serviceUuid from '../src/lib/serviceUuid';
