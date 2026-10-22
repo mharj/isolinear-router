@@ -13,8 +13,13 @@ import {type ServiceClientRegisteredControlPacket, type ServiceControlPacket, se
 import type {TargetPath} from './types/TargetPath';
 import type {UUID} from './types/UUID';
 
+export interface IServiceReg {
+	name: string;
+	uuid: ServiceUUID;
+}
+
 export class IsolinearRouter implements ISetLogger {
-	private registeredServices = new Map<UUID, IService>();
+	private registeredServices = new Map<UUID, IServiceReg>();
 	private routerPaths = new Map<TargetPath, Set<IClient>>();
 	private currentClients = new Map<ClientUUID, IClient>();
 	private outputControlCallbacks = new Set<(output: RouterControlPacket[]) => void>();
@@ -27,9 +32,10 @@ export class IsolinearRouter implements ISetLogger {
 		this.logger = logger;
 		this.handleControlInput = this.handleControlInput.bind(this);
 		this.handleDataInput = this.handleDataInput.bind(this);
-		this.messageBus.subscribe((data) => {
-			console.log('subscribe', data);
-		});
+		// Note: comment out logging for now as it might cause issues with circular subscription
+		// this.messageBus.subscribe((data) => {
+		// 	console.log('subscribe', data);
+		// });
 		if (this.messageBus.isConnected()) {
 			this.messageBus.publish([{type: 'discovery', uuid: this.routerUuid}]);
 		}
@@ -110,7 +116,8 @@ export class IsolinearRouter implements ISetLogger {
 					return this.handleInputRegisteredControlPacket(packet);
 				}
 				case 'service-register': {
-					// this.registeredServices.set(packet.uuid, {name: packet.name, status: packet.status});
+					// Register the service properly when we receive a service-register packet
+					this.registeredServices.set(packet.uuid, {name: packet.name, uuid: packet.uuid});
 					break;
 				}
 				default: {

@@ -63,7 +63,7 @@ describe('UUID tests', () => {
 		router.controlInput([registerServicePayload]);
 		const clientUuid = router.registerClient(mockupClient);
 		const services = router.listServices();
-		expect(services[0]).to.be.eql({name: 'unit-test', status: 'online'});
+		expect(services[0]).to.be.eql({name: 'unit-test', uuid: serviceUuid});
 
 		router.onControlOutput((packet) => {
 			console.log(packet);

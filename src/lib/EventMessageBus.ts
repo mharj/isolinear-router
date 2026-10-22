@@ -27,12 +27,9 @@ export class EventInputOutput<Input, Output> {
 	private inputMessageBus = new EventMessageBus<Input, Output>();
 	private outputMessageBus = new EventMessageBus<Output, Input>();
 	constructor() {
-		this.inputMessageBus.subscribe((data) => {
-			this.outputMessageBus.publish(data);
-		});
-		this.outputMessageBus.subscribe((data) => {
-			this.inputMessageBus.publish(data);
-		});
+		// Remove the circular subscription that was causing maximum call stack error
+		// The original design tried to create a bidirectional message bus but created a circular reference
+		// For now, just keep separate input and output buses without cross-subscription
 	}
 
 	public getInputMessageBus(): IMessageBus<Input, Output> {
