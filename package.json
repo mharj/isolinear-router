@@ -25,13 +25,13 @@
   "homepage": "https://github.com/mharj/isolinear-router#readme",
   "devDependencies": {
     "@avanio/logger-like": "^0.2.13",
-    "@biomejs/biome": "^2.5.15",
+    "@biomejs/biome": "^2.6.4",
     "@types/node": "^24.19.2",
     "@vitest/coverage-v8": "^5.0.5",
     "c8": "^12.0.0",
     "typescript": "^7.0.2",
     "uuid": "14.0.3",
-    "vite": "^8.3.4",
+    "vite": "^8.3.5",
     "vitest": "^5.0.5",
     "zod": "^4.6.7"
   },
